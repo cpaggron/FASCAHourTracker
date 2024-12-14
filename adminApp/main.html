@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organization App</title>
+    <style>
+      /* General body styles */
+      body {
+        background-color: #FFF9E6; /* Light yellow background */
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Container for content */
+      .container {
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+
+      /* Page Styles */
+      .page {
+        width: 80vw;
+        max-width: 50vw;
+        margin: 2vw auto;
+        padding: 2vw;
+        background-color: #fff;
+        border-radius: 1vw;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Login Page */
+      h2 {
+        color: #FFCC00; /* Yellow color for heading */
+        font-size: 3vw;
+      }
+
+      .input-group label {
+        font-weight: bold;
+        font-size: 1.6vw;
+      }
+
+      .input-group input {
+        padding: 1vw;
+        margin: 1vw 0;
+        width: 95%;
+        border: 1px solid #FFCC00; /* Yellow border */
+        border-radius: 0.5vw;
+        background-color: #FFF;
+        font-size: 1.6vw;
+        max-width: 100%; /* Ensures the input has same max width as buttons */
+      }
+
+      /* Buttons */
+      button {
+        background-color: #FFCC00; /* Yellow button */
+        color: white;
+        padding: 1.5vw 3vw;
+        border: none;
+        border-radius: 0.8vw;
+        font-size: 1.6vw;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+        max-width: 50vw; /* Ensure buttons have the same max width */
+        margin-top: 2vw;
+      }
+
+      button:hover {
+        background-color: #e6b800; /* Darker yellow on hover */
+      }
+
+      /* Reset and Report Pages */
+      .return-home-button {
+        position: fixed;
+        bottom: 3vw;
+        right: 3vw;
+        background-color: #FFCC00;
+        color: white;
+        padding: 1.5vw 3vw;
+        border: none;
+        border-radius: 0.8vw;
+        font-size: 1.6vw;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: auto;
+        transform: scale(.8);
+      }
+
+      .return-home-button:hover {
+        background-color: #e6b800; /* Darker yellow on hover */
+      }
+
+      /* Select & Checkbox Styling */
+      select, .input-group input[type="checkbox"] {
+        background-color: #FFF;
+        border: 1px solid #FFCC00;
+        border-radius: 0.5vw;
+        font-size: 1.6vw;
+        width: 99%;
+        padding: 1vw;
+        max-width: 100%; /* Same max width as buttons */
+        display: inline;
+      }
+
+      .checkbox-label {
+        margin-left: 1vw;
+        display: inline;
+      }
+
+     /* Align the checkbox and label with the other inputs */
+    .checkbox-label {
+      display: flex; /* Align checkbox and text horizontally */
+      align-items: center; /* Vertically align checkbox with the text */
+      justify-content: flex-start; /* Ensure the checkbox is on the left */
+      padding: 1vw; /* Padding for spacing */
+      border: 2px solid #FFCC00; /* Yellow border */
+      border-radius: 0.5vw; /* Rounded corners */
+      background-color: #FFF; /* White background */
+      width: 100%; /* Full width for the container */
+      max-width: 99%; /* Same width as inputs */
+      font-family: 'Arial', sans-serif; /* Font styling */
+      box-sizing: border-box; /* Include padding in width calculation */
+      cursor: pointer; /* Make label clickable */
+      transition: all 0.1s ease; /* Smooth transition for hover */
+      margin-bottom: 2vw; /* Space at the bottom */
+      margin-top: 2vw; /* Space at the top */
+      margin-left: 0vw;
+    }
+
+    /* Checkbox styling inside the label */
+    .checkbox-label input[type="checkbox"] {
+      appearance: none; /* Remove default checkbox styling */
+      -webkit-appearance: none; /* For Safari */
+      width: 2vw; /* Make the checkbox size consistent */
+      height: 2vw; /* Make the checkbox size consistent */
+      border: 2px solid #FFCC00; /* Yellow border */
+      border-radius: 50%; /* Make it round */
+      margin-right: 1vw; /* Space between checkbox and label text */
+      cursor: pointer; /* Make it clickable */
+      transition: all 0.3s ease; /* Smooth transition when clicked */
+    }
+
+    /* Change background when checked */
+    .checkbox-label input[type="checkbox"]:checked {
+      background-color: #FFCC00; /* Yellow when checked */
+      border-color: #e6b800; /* Darker yellow border when checked */
+    }
+
+    /* Add checkmark when checked */
+    .checkbox-label input[type="checkbox"]:checked::before {
+      content: "✔"; /* Checkmark */
+      font-size: 1.5vw; /* Larger checkmark */
+      color: white; /* White checkmark */
+      position: absolute;
+      top: 0.4vw; /* Position of checkmark */
+      left: 0.4vw; /* Position of checkmark */
+    }
+
+    /* Hover effect on checkbox label */
+    .checkbox-label:hover {
+      background-color: #fef9e4; /* Light yellow background on hover */
+      border-color: #e6b800; /* Darker yellow border on hover */
+    }
+
+    /* Hover effect for the checkbox text */
+    .checkbox-label:hover .checkbox-text {
+      color: #e6b800; /* Change text color on hover */
+    }
+
+    /* Change text color when the checkbox is checked */
+    .checkbox-label input[type="checkbox"]:checked + .checkbox-text {
+      color: #FFCC00; /* Change text to yellow when checked */
+      font-weight: bold; /* Bold the text when checked */
+    }
+
+    /* Change text color on click */
+    .checkbox-label .checkbox-text {
+      color: #333; /* Default text color */
+      font-size: 1.6vw; /* Font size for text */
+      font-weight: 500; /* Slightly bold text */
+      transition: color 0.3s ease; /* Smooth transition for color change */
+      cursor: pointer; /* Make text clickable */
+      user-select: none; /* Prevent text selection */
+    }
+
+
+      /* Spinner */
+      .spinner {
+        display: none;
+        border: 3px solid transparent;
+        border-top: 3px solid #FFF; /* Yellow spinner */
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        width: 2vw; /* Using viewport width */
+        height: 2vw; /* Using viewport width */
+        margin-left: 1vw;
+        align-items: center;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Error Messages */
+      .fail-message {
+        color: red;
+        font-size: 1.4vw;
+      }
+
+      /* Success Messages */
+      .success-message {
+        color: green;
+        font-size: 1.4vw;
+      }
+
+      /* Responsiveness for smaller screens */
+      @media (max-width: 600px) {
+        body {
+          padding: 2vw;
+        }
+        .page {
+          width: 90vw;
+        }
+      }
+
+      #menu, #hours-report-page, #reset-page, #recalculate-page {
+        display: none;
+      }
+      #yay-message, #menu-message {
+        color: #3da816;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Login Page -->
+      <div id="sign-in" class="page">
+        <h2>Login</h2>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter Password" onkeydown="if(event.key === 'Enter'){ login(); }" />
+        </div>
+        <button id="login-button" onclick="login()">
+          <span id="button-text">Login</span>
+          <div class="spinner" id="spinner-login"></div>
+        </button>
+        <div id="fail" class="fail-message"></div>
+      </div>
+
+      <!-- Main Menu -->
+      <div id="menu" class="page">
+        <h2>Main Menu</h2>
+        <button id="reset-button" onclick="openResetPage()">Reset Hours Sheet</button>
+        <button id="calculate-button" onclick="openRecalculatePage()">Recalculate Hours</button>
+        <button id="hours-button" onclick="openReportPage()">Create New Hours Report</button>
+        <button id="update-events-button" onclick="updateEvents()">
+            <span id="button-text-events">Update Total Amount of Events</span>
+            <div class="spinner" id="spinner-update-events"></div>
+        </button>
+        <div id="menu-message"></div>
+      </div>
+
+      <!-- Reset Page -->
+      <div id="reset-page" class="page">
+        <h2>Reset Hours Sheet</h2>
+        <div class="input-group">
+          <label for="reset-password">Insert password to reset the hours sheet</label>
+          <input id="reset-password" type="password" placeholder="Enter Password" onkeydown="if(event.key === 'Enter'){ resetSheet(); }" />
+        </div>
+        <button id="resetSheet-button" onclick="resetSheet()">
+          <span id="button-text-reset">Reset</span>
+          <div class="spinner" id="spinner-reset-sheet"></div>
+        </button>
+        <div id="fail-reset" class="fail-message"></div>
+        <button class="return-home-button" onclick="goToHomePage()">Return to Home</button>
+      </div>
+
+       <!-- Recalculate Hours Page -->
+      <div id="recalculate-page" class="page">
+        <h2>Recalculate Hours</h2>
+        <div class="input-group">
+          <label for="recalculate-id">Enter member-to-recalculate's ID</label>
+          <input id="recalculate-id" type="text" placeholder="Enter ID" onkeydown="if(event.key === 'Enter'){ recalculate(); }" />
+        </div>
+        <button id="recalculate-button" onclick="recalculate()">
+          <span id="button-text-recalculate">Recalculate</span>
+          <div class="spinner" id="spinner-recalculate"></div>
+        </button>
+        <div id="yay-message"></div>
+        <button class="return-home-button" onclick="goToHomePage()">Return to Home</button>
+      </div>
+
+      <!-- Report Hours Page -->
+      <div id="hours-report-page" class="page">
+        <h2>Create New Hours Report</h2>
+        <div class="input-group">
+          <label for="member-name">Member first and last name</label>
+          <input id="member-name" type="text" placeholder="Enter Name" />
+        </div>
+        <div class="input-group">
+          <label for="member-id">Member ID</label>
+          <input id="member-id" type="text" placeholder="Enter ID" />
+        </div>
+
+        <div class="input-group">
+          <label for="reported-hours">Hours to report</label>
+          <input id="reported-Hours" type="text" placeholder="Enter Hours" />
+        </div>
+        <div class="input-group">
+          <label for="reason">Reason</label>
+          <input id="reason" type="text" placeholder="Enter Reason" />
+        </div>
+        <div class="input-group">
+          <label for="month">Select month to enter report in</label>
+          <select id="month">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+          <label for="is-outside-hours" class="checkbox-label">
+            <input type="checkbox" id="is-outside-hours" />
+            <span class="checkbox-text">Reporting Outside Hours</span>
+          </label>
+          <button id="report-hours-button" onclick="reportHours()">
+            <span id="button-text-hours">Report Hours</span>
+            <div class="spinner" id="spinner-report-hours"></div>
+          </button>
+          <div id="hour-report-fail" class="fail-message"></div>
+          <button class="return-home-button" onclick="goToHomePage()">Return to Home</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Page Navigation Functions
+      function goToHomePage() {
+        document.getElementById("menu").style.display = 'block';  // Show menu
+        document.getElementById("reset-page").style.display = 'none';
+        document.getElementById("hours-report-page").style.display = 'none';
+        document.getElementById("recalculate-page").style.display = 'none';
+        document.getElementById("sign-in").style.display = 'none';
+
+        document.getElementById("hours-report-page").innerHTML = 
+        `<h2>Create New Hours Report</h2>
+        <div class="input-group">
+          <label for="member-name">Member first and last name</label>
+          <input id="member-name" type="text" placeholder="Enter Name" />
+        </div>
+        <div class="input-group">
+          <label for="member-id">Member ID</label>
+          <input id="member-id" type="text" placeholder="Enter ID" />
+        </div>
+
+        <div class="input-group">
+          <label for="reported-hours">Hours to report</label>
+          <input id="reported-Hours" type="text" placeholder="Enter Hours" />
+        </div>
+        <div class="input-group">
+          <label for="reason">Reason</label>
+          <input id="reason" type="text" placeholder="Enter Reason" />
+        </div>
+        <div class="input-group">
+          <label for="month">Select month to enter report in</label>
+          <select id="month">
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+          </select>
+          <label for="is-outside-hours" class="checkbox-label">
+            <input type="checkbox" id="is-outside-hours" />
+            <span class="checkbox-text">Reporting Outside Hours</span>
+          </label>
+          <button id="report-hours-button" onclick="reportHours()">
+            <span id="button-text-hours">Report Hours</span>
+            <div class="spinner" id="spinner-report-hours"></div>
+          </button>
+          <div id="hour-report-fail" class="fail-message"></div>
+          <button class="return-home-button" onclick="goToHomePage()">Return to Home</button>`;
+      }
+
+      function openResetPage() {
+        document.getElementById("menu").style.display = 'none';
+        document.getElementById("reset-page").style.display = 'inline';
+      }
+
+      function openRecalculatePage() {
+        document.getElementById("menu").style.display = 'none';
+        document.getElementById("recalculate-page").style.display = 'inline';
+      }
+
+      function openReportPage() {
+        document.getElementById("menu").style.display = 'none';
+        document.getElementById("hours-report-page").style.display = 'inline';
+      }
+
+      function recalculate() {
+        document.getElementById('spinner-recalculate').style.display = 'inline-block';
+        document.getElementById('button-text-recalculate').style.display = 'none';
+
+        google.script.run.withSuccessHandler(function(success) {
+          if (success){
+            document.getElementById("yay-message").innerHTML = "Successfully updated hours!";
+          } else {
+            document.getElementById("yay-message").innerHTML = "Failed";
+          }
+          document.getElementById('spinner-recalculate').style.display = 'none';
+          document.getElementById('button-text-recalculate').style.display = 'inline-block';
+        }).recalculateHours(document.getElementById("recalculate-id").value);
+      }
+
+      function isReportingOutsideHours() {
+        return document.getElementById("is-outside-hours").checked;
+      }
+
+      function reportHoursMessage(success) {
+        document.getElementById('spinner-report-hours').style.display = 'none';
+        document.getElementById('button-text-hours').style.display = 'inline-block';
+        if (success) {
+          document.getElementById("hours-report-page").innerHTML = `<h2>Your hours have been reported successfully!<h2><button class="return-home-button" onclick="goToHomePage()">Return to Home</button>`;
+        } else {
+          document.getElementById("hour-report-fail").innerHTML = "Some of the data is incorrect, please try again.";
+        }
+      }
+
+      function updateEvents() {
+        document.getElementById('spinner-update-events').style.display = 'inline-block';
+        document.getElementById('button-text-events').style.display = 'none';
+        document.getElementById("menu-message").innerHTML = "";
+
+        google.script.run.withSuccessHandler(function() {
+          document.getElementById('spinner-update-events').style.display = 'none';
+          document.getElementById('button-text-events').style.display = 'inline-block';
+          document.getElementById("menu-message").innerHTML = "Successfully updated event count!";
+        }).getTotalEvents();
+      }
+
+      function reportHours() {
+        document.getElementById('spinner-report-hours').style.display = 'inline-block';
+        document.getElementById('button-text-hours').style.display = 'none';
+
+        google.script.run.withSuccessHandler(reportHoursMessage).reportHours(
+          document.getElementById("member-name").value,
+          document.getElementById("member-id").value,
+          document.getElementById("reported-Hours").value,
+          document.getElementById("reason").value,
+          document.getElementById("month").value,
+          isReportingOutsideHours()
+        );
+      }
+
+      function login() {
+        document.getElementById('spinner-login').style.display = 'inline-block';
+        document.getElementById('button-text').style.display = 'none';
+        google.script.run.withSuccessHandler(onLogin).login(document.getElementById("password").value);
+      }
+
+      function onLogin(logged_in) {
+        document.getElementById('spinner-login').style.display = 'none';
+        document.getElementById('button-text').style.display = 'inline';
+
+        if (logged_in) {
+          document.getElementById("sign-in").style.display = 'none';
+          document.getElementById("menu").style.display = 'inline';
+        } else {
+          document.getElementById("fail").innerHTML = "Invalid Password";
+        }
+      }
+
+      function resetSheet() {
+        document.getElementById('spinner-reset-sheet').style.display = 'inline-block';
+        document.getElementById('button-text-reset').style.display = 'none';
+
+        google.script.run.withSuccessHandler(function(passwordCorrect) {
+          if (passwordCorrect) {
+            google.script.run.withSuccessHandler(function() {document.getElementById("fail-reset").innerHTML = "Document successfully reset!"; document.getElementById("fail-reset").style.color = "#57b330";}).reset();
+          } else {
+            document.getElementById("fail-reset").innerHTML = "Invalid Password";
+          }
+          document.getElementById('spinner-reset-sheet').style.display = 'none';
+          document.getElementById('button-text-reset').style.display = 'inline-block';
+        }).login(document.getElementById("reset-password").value);
+      }
+    </script>
+  </body>
+</html>
