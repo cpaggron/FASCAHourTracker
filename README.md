@@ -9,3 +9,5 @@ Project created during my senior year to help facilitate hour tracking for the F
 **Administrator App**:
 - Hours report page to report non-event in club hours or outside hours
 - Troubleshoot button that recalculates hours if the Google Sheet layout was messed up
+- Reset button
+- Recount number of events
