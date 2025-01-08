@@ -1,5 +1,5 @@
 # FASCA Hour Tracker
-Project created during my senior year to help facilitate hour tracking for the Formosa Association of Student Cultural Ambassadors (San Diego Chapter). This repositories has 3 different webapps: sign in, sign out, and an administrator untilities web app. They are all linked to the main hour tracker google sheets and reads/updates data based off of it.
+Project created during my senior year of high school to help facilitate hour tracking for the Formosa Association of Student Cultural Ambassadors (San Diego Chapter). This repositories has 3 different webapps: sign in, sign out, and an administrator untilities web app. They are all linked to the main hour tracker google sheets and reads/updates data based off of it.
 
 ### Sign In/Out:
 - Records time user sign in/out to an event
