@@ -14,7 +14,7 @@ Project created during my senior year to help facilitate hour tracking for the F
 - Reset button
 - Recount number of events
 
-![webapp_admin](https://github.com/user-attachments/assets/06457dc6-6a83-44d6-a30b-e8b9a08910b0) 
+![webapp_admin](https://github.com/user-attachments/assets/06457dc6-6a83-44d6-a30b-e8b9a08910b0)
 <img width="370" alt="Screenshot 2025-01-07 at 10 58 40 PM" src="https://github.com/user-attachments/assets/cb2ce0f6-5b4d-4abb-a79e-d5079375d974" />
 
 
